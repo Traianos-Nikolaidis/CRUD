@@ -18,7 +18,7 @@ class PersonController extends Controller
         if ($searchName) $query->where('name', 'LIKE', "%{$searchName}%");
 
         $person = $query->orderBy('name', 'asc')->paginate(5)->withPath(config('app.url') . '/person');
-        return view('person.index', ['person' => $person, 'searchName' => $searchName]);
+        return view('person.index', ['people' => $person, 'searchName' => $searchName]);
     }
 
     public function store(Request $request)
@@ -51,8 +51,8 @@ class PersonController extends Controller
 
     public function show($id)
     {
-        $p = Person::findOrFail($id);
-        return view('person.show', ['p' => $p]);
+        $person = Person::findOrFail($id);
+        return view('person.show', ['person' => $person]);
     }
 
     public function create()
