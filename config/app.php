@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://8000-gitpodsampl-templatephp-qek5uyjagci.ws-eu97.gitpod.io'),
 
     'asset_url' => env('ASSET_URL'),
 

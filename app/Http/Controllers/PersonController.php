@@ -17,7 +17,7 @@ class PersonController extends Controller
 
         if ($searchName) $query->where('name', 'LIKE', "%{$searchName}%");
 
-        $person = $query->paginate(5)->withPath(env('PATH1').'/person');
+        $person = $query->orderBy('name', 'asc')->paginate(5)->withPath(config('app.url') . '/person');
         return view('person.index', ['person' => $person, 'searchName' => $searchName]);
     }
 
@@ -31,7 +31,7 @@ class PersonController extends Controller
             return redirect()->back()->withErrors($validation)->withInput();
         }
         $person = Person::create($validation->validated());
-        return redirect(env('PATH1'))->with('success', 'New person added.');
+        return redirect(config('app.url') . '/person/create')->with('success', 'New person added.');
     }
 
     public function update(Request $request, $id)
@@ -39,32 +39,39 @@ class PersonController extends Controller
         $person = Person::findOrFail($id);
         $validation = Validator::make($request->all(), [
             'name' => 'required|max:255',
-            'email' => ['required','email', Rule::unique('people')->ignore($person)]
+            'email' => ['required', 'email', Rule::unique('people')->ignore($person)]
         ]);
         if ($validation->fails()) {
             return redirect()->back()->withErrors($validation)->withInput();
         }
         $person->update($validation->validated());
-        $baseUrl = request()->getSchemeAndHttpHost();
 
-        return redirect(env('PATH1'))->with('success', 'Person info updated.');
+        return redirect(config('app.url') . '/person/' . $id . '/edit')->with('success', 'Person info updated.');
     }
 
-    public function delete($id)
+    public function show($id)
     {
-        $person = Person::findOrFail($id);
-        $person->delete();
-        return redirect(env('PATH1'))->with('success', 'Person deleted.');
+        $p = Person::findOrFail($id);
+        return view('person.show', ['p' => $p]);
     }
 
-    public function createForm()
+    public function create()
     {
         return view('person.create');
     }
 
-    public function updateForm($id)
+    public function edit($id)
     {
         $person = Person::findOrFail($id);
-        return view('person.update', ['p' => $person]);
+        return view('person.edit', ['person' => $person]);
+    }
+
+    public function destroy($id)
+    {
+        $person = Person::findOrFail($id);
+        $name = $person->name;
+        $email = $person->email;
+        if ($person->delete())
+            return redirect(config('app.url'))->with(['user' => "$name, $email", 'success' => 'Person deleted successfully.']);
     }
 }

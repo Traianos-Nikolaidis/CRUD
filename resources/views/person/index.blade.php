@@ -2,9 +2,18 @@
 
 @section('content')
 <style>
-nav[aria-label] div div span.relative{ display:none}
+    nav[aria-label] div div span.relative {
+        display: none
+    }
 </style>
 <div class="container mt-4">
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('user') }} <br>
+        {{ session('success') }}
+
+    </div>
+    @endif
     <div class="d-flex justify-content-between align-items-center">
         <h1>People</h1>
         <a href="/person/create" class="btn btn-primary">Create Person</a>
@@ -18,12 +27,12 @@ nav[aria-label] div div span.relative{ display:none}
         <div class="card-body">
             <p class="card-text"> <span id="name">{{$p->name}}</span></p>
             <p class="card-text"> <span id="email">{{$p->email}}</span></p>
-
-            <a href="/person/update/{{ $p->id }}" class="btn btn-warning">Edit</a>
+            <a href="/person/{{ $p->id }}" class="btn btn-success">View</a>
+            <a href="/person/{{ $p->id }}/edit" class="btn btn-warning">Edit</a>
             <form method="POST" action="/person/{{ $p->id }}" style="display:inline;">
                 @csrf
                 @method('DELETE')
-                <input type='submit' value='DELETE' class="btn btn-danger" onclick="return confirm('Are you sure?')" />
+                <input type='submit' value='Delete' class="btn btn-danger" onclick="return confirm('Are you sure?')" />
             </form>
         </div>
     </div>
@@ -31,4 +40,4 @@ nav[aria-label] div div span.relative{ display:none}
     {{ $person->links() }}
 </div>
 
-@endsection
+@stop

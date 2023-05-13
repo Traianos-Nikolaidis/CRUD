@@ -10,20 +10,25 @@
         @endforeach
     </div>
     @endif
-    <form method="POST" action="/person/{{ $p->id }}" class="mt-5">
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+    <form method="POST" action="/person/{{ $person->id }}" class="mt-5">
         @csrf
         @method('PUT')
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" required name="name" id="name" value="{{ $p->name }}" class="form-control" />
+            <input type="text" required name="name" id="name" value="{{ $person->name }}" class="form-control" />
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="text"  name="email" id="email" value="{{ $p->email }}" class="form-control" />
+            <input type="text" name="email" id="email" value="{{ $person->email }}" class="form-control" />
         </div>
         <div class="form-group">
             <input type="submit" name="submit" value="Update Person" class="btn btn-primary" />
         </div>
     </form>
 </div>
-@endsection
+@stop
