@@ -1,6 +1,6 @@
 1. In a terminal inside the project run the command "composer install".
 
-2.  Find the database folder and look for the file "person.sqlite and copy" the path (absolute path), if the file doesn't exist create it.
+2.  Find the database folder and look for the file "person.sqlite" and copy the path (absolute path), if the file doesn't exist create it.
     Go to .env file and do the following:
         ...
         APP_URL=https://myURLexample.com
