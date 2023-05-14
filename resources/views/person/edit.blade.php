@@ -24,7 +24,7 @@
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="text" name="email" id="email" value="{{ $person->email }}" class="form-control" />
+            <input type="email" name="email" required id="email" value="{{ $person->email }}" class="form-control" />
         </div>
         <div class="form-group">
             <input type="submit" name="submit" value="Update Person" class="btn btn-primary" />

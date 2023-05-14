@@ -1,0 +1,18 @@
+1.  Database  should be set and ready (no need for any configuration/credentials).
+    Run the following command in the terminal "php artisan serve" and press Ctrl+click on the link provided by laravel.
+
+    If it fails, make sure to go to the .env file and replace the database to the following:
+        DB_CONNECTION=sqlite
+        DB_HOST=127.0.0.1
+        DB_PORT=3306
+        DB_DATABASE=/workspace/template-php-laravel-mysql/database/person.sqlite
+        DB_USERNAME=root
+        DB_PASSWORD=
+
+    Find the database folder and look for the file person.sqlite, if doesn't exist create it.
+    Kill terminal by pressing Ctrl+C then run "php artisan migrate" then "php artisan db:seed" and "php artisan serve".
+
+2.  If something goes wrong after you run the command "php artisan serve" and the project fails the url.
+    Go to file config/app.php then find 'url' => env('APP_URL', 'https://8000-gitpodsampl-templatephp-qek5uyjagci.ws-eu97.gitpod.io') and replace it with your own gitpod url/link.
+    Kill terminal by pressing Ctrl+C.
+    Run command "php artisan config:clear" then "php artisan route:clear" then "php artisan route:cache" then "php artisan serve" and press Ctrl+click on the link provided by laravel.

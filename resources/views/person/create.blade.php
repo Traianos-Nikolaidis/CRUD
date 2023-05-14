@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="text" name="email" id="email" placeholder="johndoe@example.com" value="{{ old('email') }}" class="form-control" />
+            <input type="email" name="email" id="email" required placeholder="johndoe@example.com" value="{{ old('email') }}" class="form-control" />
         </div>
         <div class="form-group">
             <input type="submit" name="submit" value="Submit" class="btn btn-primary" />

@@ -14,10 +14,8 @@ class PersonController extends Controller
     {
         $searchName = $request->input("searchName");
         $query = Person::query();
-
         if ($searchName) $query->where('name', 'LIKE', "%{$searchName}%");
-
-        $person = $query->orderBy('name', 'asc')->paginate(5)->withPath(config('app.url') . '/person');
+        $person = $query->orderByRaw('LOWER(name) asc')->paginate(5)->withPath(config('app.url') . '/person');
         return view('person.index', ['people' => $person, 'searchName' => $searchName]);
     }
 
@@ -71,7 +69,7 @@ class PersonController extends Controller
         $person = Person::findOrFail($id);
         $name = $person->name;
         $email = $person->email;
-        if ($person->delete())
-            return redirect(config('app.url'))->with(['user' => "$name, $email", 'success' => 'Person deleted successfully.']);
+        $person->delete();
+        return redirect(config('app.url'))->with(['user' => "$name, $email", 'success' => 'Person deleted successfully.']);
     }
 }
