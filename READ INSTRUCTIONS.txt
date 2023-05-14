@@ -14,4 +14,4 @@
 
 3.  Run the command "php artisan serve" and press Ctrl+click on the link provided by laravel.
 
-NOTE: when the new tab is opened the URL you see should be your URL example.
+NOTE: when the new tab is opened the URL you see should be your URL example, or leave it blank for local machine (localhost).
