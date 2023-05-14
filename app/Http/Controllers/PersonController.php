@@ -15,7 +15,7 @@ class PersonController extends Controller
         $searchName = $request->input("searchName");
         $query = Person::query();
         if ($searchName) $query->where('name', 'LIKE', "%{$searchName}%");
-        $person = $query->orderByRaw('LOWER(name) asc')->paginate(5)->withPath(config('app.url') . '/person');
+        $person = $query->orderByRaw('LOWER(name) asc')->paginate(5)->withPath(env('APP_URL') . '/person');
         return view('person.index', ['people' => $person, 'searchName' => $searchName]);
     }
 
@@ -29,7 +29,7 @@ class PersonController extends Controller
             return redirect()->back()->withErrors($validation)->withInput();
         }
         $person = Person::create($validation->validated());
-        return redirect(config('app.url') . '/person/create')->with('success', 'New person added.');
+        return redirect(env('APP_URL') . '/person/create')->with('success', 'New person added.');
     }
 
     public function update(Request $request, $id)
@@ -44,7 +44,7 @@ class PersonController extends Controller
         }
         $person->update($validation->validated());
 
-        return redirect(config('app.url') . '/person/' . $id . '/edit')->with('success', 'Person info updated.');
+        return redirect(env('APP_URL') . '/person/' . $id . '/edit')->with('success', 'Person info updated.');
     }
 
     public function show($id)
@@ -70,6 +70,6 @@ class PersonController extends Controller
         $name = $person->name;
         $email = $person->email;
         $person->delete();
-        return redirect(config('app.url'))->with(['user' => "$name, $email", 'success' => 'Person deleted successfully.']);
+        return redirect(env('APP_URL'))->with(['user' => "$name, $email", 'success' => 'Person deleted successfully.']);
     }
 }
